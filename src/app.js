@@ -1,5 +1,6 @@
 const express = require("express");
 const pool = require("./config/db");
+const postValidation = require("./validation/post");
 
 const app = express();
 app.use(express.json());
@@ -41,7 +42,7 @@ app.get("/posts", async (req, res) => {
     }
 })
 
-app.post("/posts", async (req, res) => {
+app.post("/posts", postValidation, async (req, res) => {
   try {
     const { titulo, conteudo, usuario_id } = req.body;
     const resultado = await pool.query(
@@ -63,7 +64,7 @@ app.post("/posts", async (req, res) => {
   }
 });
 
-app.put("/posts/:id", async (req, res) => {
+app.put("/posts/:id", postValidation, async (req, res) => {
     try {
         const {id} = req.params;
         const {titulo, conteudo} = req.body;
