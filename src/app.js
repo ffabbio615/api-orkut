@@ -6,10 +6,12 @@ const validarPost = require("./validacao/post");
 const jwt = require("jsonwebtoken");
 const auth = require("./auth/authLogin");
 const bcrypt = require("bcrypt");
+const cors = require("cors");
 
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("<h1>Rede Social!</h1>");
@@ -20,7 +22,7 @@ app.post("/usuarios", validarUsuarios, async (req, res) => {
   try {
     const {nome, email, senha} = req.body;
 
-    const senhaHash = await bcrypt.hash(senha, 10)
+    const senhaHash = await bcrypt.hash(senha, 10);
 
     const resultado = await pool.query(`
       INSERT INTO usuarios (nome, email, senha)
