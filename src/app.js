@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const pool = require("./config/db");
-const validarUsuarios = require("./validacao/usuarios");
+const validarUsuarios = require("./validacao/usuarios.js");
 const validarPost = require("./validacao/post");
 const jwt = require("jsonwebtoken");
 const auth = require("./auth/authLogin");
